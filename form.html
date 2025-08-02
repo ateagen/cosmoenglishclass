@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulir Pendaftaran</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      margin: 0;
+      padding: 2rem;
+    }
+    form {
+      background: #fff;
+      max-width: 500px;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    button {
+      background: #00bcd4;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0097a7;
+    }
+    .popup {
+      display: none;
+      text-align: center;
+      background: #dff0d8;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-top: 1rem;
+      color: #3c763d;
+    }
+  </style>
+</head>
+<body>
+  <form id="formPendaftaran" name="pendaftaran-kelas">
+    <h2>Formulir Pendaftaran</h2>
+    <input type="text" name="nama" placeholder="Nama" required />
+    <textarea name="alamat" placeholder="Alamat" required></textarea>
+    <select name="kelas" required>
+      <option value="">Pilih Kelas</option>
+      <option value="offline">Offline</option>
+      <option value="online">Online</option>
+    </select>
+    <input type="text" name="kebutuhan" placeholder="Contoh: TOEFL, Beasiswa" required />
+    <input type="tel" name="no_wa" placeholder="No WhatsApp" required />
+    <button type="submit">Daftar</button>
+    <div class="popup" id="popupBerhasil">Terima kasih telah mendaftar. Admin akan menghubungi Anda segera.</div>
+  </form>
+
+  <script src="https://script.google.com/macros/s/AKfycbwxvmvwY7PDLaAPOMNW33n_GDxG8t2TX5fBEIOOd63wOHQqGq0eIrfLYpNKv6upudfSOQ/exec">
+    const form = document.getElementById("formPendaftaran");
+    const popup = document.getElementById("popupBerhasil");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const scriptURL = 'https://script.google.com/macros/s/PASTE-LINK-HERE/exec'; // Ganti nanti
+      const formData = new FormData(form);
+
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => {
+          popup.style.display = "block";
+          form.reset();
+        })
+        .catch(error => console.error('Error!', error.message));
+    });
+  </script>
+</body>
+</html>

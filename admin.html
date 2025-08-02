@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Pendaftar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 2rem;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.8rem;
+      text-align: left;
+    }
+
+    th {
+      background: #00bcd4;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      th {
+        position: sticky;
+        top: 0;
+      }
+      td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+      }
+      td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        font-weight: bold;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Data Pendaftar Kelas Bahasa Inggris</h2>
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>Waktu</th>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th>Kelas</th>
+        <th>Kebutuhan</th>
+        <th>No WA</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const sheetURL = 'https://script.google.com/macros/s/AKfycbwxvmvwY7PDLaAPOMNW33n_GDxG8t2TX5fBEIOOd63wOHQqGq0eIrfLYpNKv6upudfSOQ/exec'; // Ganti sesuai URL script kamu
+
+    fetch(sheetURL)
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.querySelector("#dataTable tbody");
+        tbody.innerHTML = "";
+        data.forEach(row => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${row.timestamp}</td>
+            <td>${row.nama}</td>
+            <td>${row.alamat}</td>
+            <td>${row.kelas}</td>
+            <td>${row.kebutuhan}</td>
+            <td>${row.no_wa}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        console.error("Gagal mengambil data:", err);
+        alert("Gagal mengambil data dari Google Sheet.");
+      });
+  </script>
+</body>
+</html>
+
