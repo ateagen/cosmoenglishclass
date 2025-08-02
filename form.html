@@ -2,22 +2,23 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Pendaftaran Kelas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pendaftaran Kelas Cosmo</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: linear-gradient(to right, #00c6ff, #0072ff);
+      margin: 0;
       padding: 2rem;
     }
 
     .container {
-      background: white;
       max-width: 600px;
       margin: auto;
+      background: white;
       padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
 
     h2 {
@@ -26,29 +27,31 @@
     }
 
     label {
-      margin-top: 1rem;
       display: block;
+      margin-top: 1rem;
+      font-weight: bold;
     }
 
     input, select, textarea, button {
       width: 100%;
-      padding: 0.8rem;
-      margin-top: 0.4rem;
-      border-radius: 10px;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
       border: 1px solid #ccc;
+      border-radius: 8px;
       box-sizing: border-box;
     }
 
     button {
-      background: #0072ff;
+      background-color: #0072ff;
       color: white;
-      font-weight: bold;
-      cursor: pointer;
+      font-size: 1rem;
+      border: none;
       margin-top: 1.5rem;
+      cursor: pointer;
     }
 
     button:hover {
-      background: #005dd1;
+      background-color: #0056cc;
     }
 
     #popup {
@@ -59,42 +62,42 @@
       transform: translate(-50%, -50%);
       background: white;
       padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
       z-index: 9999;
       text-align: center;
-      max-width: 300px;
     }
 
     @media (max-width: 600px) {
-      .container {
+      body {
         padding: 1rem;
       }
     }
   </style>
 </head>
 <body>
+
   <div class="container">
-    <h2>Form Pendaftaran Kelas</h2>
+    <h2>Form Pendaftaran Kelas Cosmo</h2>
     <form id="form-daftar">
       <label for="nama">Nama Lengkap*</label>
-      <input type="text" id="nama" name="nama" required>
+      <input type="text" name="nama" id="nama" required>
 
       <label for="alamat">Alamat*</label>
-      <textarea id="alamat" name="alamat" required></textarea>
+      <textarea name="alamat" id="alamat" required></textarea>
 
       <label for="kelas">Pilih Kelas*</label>
-      <select id="kelas" name="kelas" required>
-        <option value="">-- Pilih --</option>
+      <select name="kelas" id="kelas" required>
+        <option value="">-- Pilih Kelas --</option>
         <option value="Offline">Offline</option>
         <option value="Online">Online</option>
       </select>
 
       <label for="kebutuhan">Butuh Untuk Apa?*</label>
-      <input type="text" id="kebutuhan" name="kebutuhan" placeholder="Contoh: TOEFL, Beasiswa, Sekolah" required>
+      <input type="text" name="kebutuhan" id="kebutuhan" required>
 
       <label for="wa">Nomor WhatsApp*</label>
-      <input type="tel" id="wa" name="wa" placeholder="08xxxxxxxxxx" required>
+      <input type="tel" name="wa" id="wa" required>
 
       <button type="submit">Daftar</button>
     </form>
@@ -106,24 +109,18 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyCrBbs_cwrpFNuNizQmnpw9diR1Pw77wcYDzPJVoYSl7qoU0P6WZvpGHqTnxzK_el03A/exec'; // GANTI DENGAN DEPLOYMENT ID KAMU
     const form = document.getElementById('form-daftar');
     const popup = document.getElementById('popup');
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyCrBbs_cwrpFNuNizQmnpw9diR1Pw77wcYDzPJVoYSl7qoU0P6WZvpGHqTnxzK_el03A/exec'; // Ganti dengan URL dari Google Apps Script kamu
 
     form.addEventListener('submit', e => {
       e.preventDefault();
       const formData = new FormData(form);
+
       fetch(scriptURL, { method: 'POST', body: formData })
         .then(response => {
-          form.reset();
-          popup.style.display = 'block';
-          setTimeout(() => popup.style.display = 'none', 5000);
-        })
-        .catch(error => {
-          alert('Terjadi kesalahan. Silakan coba lagi.');
-          console.error('Error!', error.message);
-        });
-    });
-  </script>
-</body>
-</html>
+          popup.style.display = 'block'; // Tampilkan popup
+          setTimeout(() => {
+            popup.style.display = 'none';
+            window
