@@ -2,161 +2,174 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Beranda Kelas Bahasa Inggris</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daftar Kelas Bahasa Inggris</title>
   <style>
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
       font-family: 'Segoe UI', sans-serif;
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
       color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
     }
 
     .container {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 3rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 3rem 2rem;
       border-radius: 20px;
-      text-align: center;
-      width: 90%;
-      max-width: 500px;
+      max-width: 600px;
+      width: 100%;
     }
 
     h1 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .btn {
-      padding: 1rem 2rem;
-      margin: 1rem;
-      font-size: 1.1rem;
+      padding: 0.8rem 1.5rem;
       border: none;
       border-radius: 30px;
+      background-color: #00bcd4;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
       cursor: pointer;
       transition: background 0.3s;
+      min-width: 120px;
     }
 
-    .btn-daftar {
-      background-color: #00e5ff;
-      color: #000;
+    .btn:hover {
+      background-color: #0097a7;
     }
 
-    .btn-daftar:hover {
-      background-color: #00bcd4;
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+      }
     }
 
-    .btn-admin {
-      background-color: #ff9800;
-      color: #000;
+    @media (max-width: 480px) {
+      .container {
+        padding: 2rem 1rem;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      p {
+        font-size: 1rem;
+      }
     }
 
-    .btn-admin:hover {
-      background-color: #e68900;
-    }
-
-    /* Modal Pop-up */
     .modal {
-      display: none;
       position: fixed;
-      z-index: 100;
-      left: 0;
       top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.6);
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 1000;
     }
 
     .modal-content {
-      background-color: white;
+      background-color: #fff;
       padding: 2rem;
-      border-radius: 15px;
+      border-radius: 10px;
       text-align: center;
-      width: 90%;
-      max-width: 400px;
+      color: #333;
+      max-width: 300px;
+      width: 100%;
     }
 
     .modal-content input {
-      padding: 0.7rem;
       width: 100%;
+      padding: 0.5rem;
       margin-top: 1rem;
-      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
 
     .modal-content button {
-      margin-top: 1.5rem;
-      padding: 0.7rem 2rem;
-      font-size: 1rem;
+      padding: 0.5rem 1rem;
       background-color: #00bcd4;
+      color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 5px;
       cursor: pointer;
     }
 
     .modal-content button:hover {
-      background-color: #00a2b1;
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      .btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-      }
+      background-color: #0097a7;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Selamat Datang di Kelas Bahasa Inggris</h1>
-    <button class="btn btn-daftar" onclick="window.location.href='form.html'">Daftar</button>
-    <button class="btn btn-admin" onclick="bukaModal()">Admin</button>
+    <h1>Daftar Kelas Bahasa Inggris</h1>
+    <p>Bergabunglah dengan program kami untuk meningkatkan kemampuan bahasa Inggris Anda — cocok untuk semua level!</p>
+    <div class="button-group">
+      <button class="btn" onclick="location.href='form-daftar.html'">Daftar</button>
+      <button class="btn" onclick="showPasswordModal()">Admin</button>
+    </div>
   </div>
 
-  <!-- Modal Password -->
-  <div class="modal" id="modalPassword">
+  <div id="passwordModal" class="modal" style="display: none;">
     <div class="modal-content">
       <h3>Masukkan Password Admin</h3>
-      <input type="password" id="inputPassword" placeholder="Password">
-      <button onclick="cekPassword()">Masuk</button>
+      <input type="password" id="adminPassword" placeholder="Password" />
+      <button onclick="checkPassword()">Masuk</button>
     </div>
   </div>
 
   <script>
-    function bukaModal() {
-      document.getElementById("modalPassword").style.display = "flex";
+    function showPasswordModal() {
+      document.getElementById('passwordModal').style.display = 'flex';
     }
 
-    function cekPassword() {
-      const pass = document.getElementById("inputPassword").value;
-      if (pass === "1928") {
-        sessionStorage.setItem("isAdmin", true);
-        window.location.href = "admin.html";
+    function checkPassword() {
+      const password = document.getElementById('adminPassword').value;
+      if (password === '1928') {
+        sessionStorage.setItem('isAdmin', 'true');
+        window.location.href = 'admin.html';
       } else {
-        alert("Password salah!");
-      }
-    }
-
-    // Tutup modal saat klik di luar
-    window.onclick = function(event) {
-      const modal = document.getElementById("modalPassword");
-      if (event.target == modal) {
-        modal.style.display = "none";
+        alert('Password salah!');
       }
     }
   </script>
 </body>
 </html>
+
