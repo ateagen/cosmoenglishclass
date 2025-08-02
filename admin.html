@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Data Pendaftar</title>
+  <title>Halaman Admin</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
       padding: 2rem;
+      background: #f5f7fa;
     }
 
     h2 {
@@ -32,23 +32,30 @@
     }
 
     th {
-      background: #00bcd4;
+      background-color: #00796B;
       color: white;
     }
 
-    @media (max-width: 600px) {
+    #downloadBtn {
+      margin: 1rem 0;
+      padding: 10px 20px;
+      background: #009688;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    @media screen and (max-width: 600px) {
       table, thead, tbody, th, td, tr {
         display: block;
       }
-      th {
-        position: sticky;
-        top: 0;
-      }
+
       td {
-        border: none;
         position: relative;
         padding-left: 50%;
       }
+
       td::before {
         content: attr(data-label);
         position: absolute;
@@ -60,6 +67,7 @@
 </head>
 <body>
   <h2>Data Pendaftar Kelas Bahasa Inggris</h2>
+  <button id="downloadBtn">Download Excel</button>
   <table id="dataTable">
     <thead>
       <tr>
@@ -75,13 +83,14 @@
   </table>
 
   <script>
-    const sheetURL = 'https://script.google.com/macros/s/AKfycbwxvmvwY7PDLaAPOMNW33n_GDxG8t2TX5fBEIOOd63wOHQqGq0eIrfLYpNKv6upudfSOQ/exec'; // Ganti sesuai URL script kamu
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyCrBbs_cwrpFNuNizQmnpw9diR1Pw77wcYDzPJVoYSl7qoU0P6WZvpGHqTnxzK_el03A/exec'; // GANTI URL
 
-    fetch(sheetURL)
+    fetch(SHEET_URL)
       .then(res => res.json())
       .then(data => {
         const tbody = document.querySelector("#dataTable tbody");
         tbody.innerHTML = "";
+
         data.forEach(row => {
           const tr = document.createElement("tr");
           tr.innerHTML = `
@@ -94,12 +103,26 @@
           `;
           tbody.appendChild(tr);
         });
-      })
-      .catch(err => {
-        console.error("Gagal mengambil data:", err);
-        alert("Gagal mengambil data dari Google Sheet.");
       });
+
+    // Download sebagai Excel
+    document.getElementById("downloadBtn").addEventListener("click", function () {
+      const table = document.getElementById("dataTable");
+      let csvContent = "";
+      for (let row of table.rows) {
+        let rowData = [];
+        for (let cell of row.cells) {
+          rowData.push(cell.innerText);
+        }
+        csvContent += rowData.join(",") + "\n";
+      }
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "data-pendaftar.csv";
+      link.click();
+    });
   </script>
 </body>
 </html>
-
